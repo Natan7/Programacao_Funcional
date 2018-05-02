@@ -13,7 +13,8 @@ fatorial = \x -> if(x==0) then 1
               else x * fatorial (x-1)
 
 
-isPrime x = undefined
+isPrime = \x -> notElem 0 ( map (mod x) ( take (x-2) (iterate (1+) 2) ) )
+
 
 fib = \x -> if(x==1) then 1
               else if(x==2) then 1
@@ -32,13 +33,28 @@ goldbach x = undefined
 --Implemente as funções sobre listas escritas previsamente usando expressões lambda
 --consulte suas implementacoes anteriores para a documentacao dessas funcoes
 
+------------------------------------------------------
+------firstall (a : []) = (\a -> a) a : []
+------firstall (a : xs) = ((\a -> a) a : firstall(xs))
+------------------------------------------------------
 
-meuLast (x:xs) = \x xs -> if(x==[] && xs==[]) then error "Empyt List"
-                   else if(xs==[]) then x
-                   else meuLast xs
+firstall = \(x:xs) -> tail xs
+
+--meuLast = \(x:xs) -> meuLast(xs)
+--meuLast = \(x:xs) -> if(x==[] && xs==[]) then error "Empyt List"
+--                   else if(xs==[]) then x
+--                   else meuLast xs
 
 penultimo xs = undefined
-elementAt i xs = undefined
+
+elementAt = \i (x:xs) -> if(i==1) then x
+                         else elementAt (i-1) xs
+
+----------------------------
+t1 = \x -> \_ -> x
+t2 = \x _ -> x
+----------------------------
+
 meuLength xs = undefined
 meuReverso xs = undefined
 isPalindrome xs = undefined
