@@ -1,27 +1,44 @@
 --Escreva a declaracao para o tipo Triple, contendo tres elementos, todos de tipos diferentes.
 --Escreva funcoes tripleFst, tripleSnd, tripleThr para extrair respectivamente o primeiro, segundo e terceiro
 -- elementos de uma triple.
-data Triple a b c = Nada deriving (Eq,Show)
 
-tripleFst = undefined
-tripleSnd = undefined
-tripleThr = undefined
+------------------------------------------------------------------
+---- Not Run - data Triplo a b c = Triple a b c deriving (Eq,Show)
+--- "Triplo" is constructor ----------
+
+data Triple a b c = Triplo a b c deriving (Eq,Show)
+
+tripleFst (Triplo a b c) = a
+tripleSnd (Triplo a b c) = b
+tripleThr (Triplo a b c) = c
 
 --Escreva um tipo Quadruple que contem 4 elementos: dois de um mesmo tipo e outros dois de outro tipo
 --Escreva as funcoes frstTwo e secondTwo que retornam os dois primeiros e os dois ultimos, respectivamente
-data Quadruple a b = Vazio
+data Quadruple a b = Quadruplo a a b b deriving (Eq,Show)
 
-firstTwo = undefined
-secondTwo = undefined
+firstTwo (Quadruplo a b c d) = (a,b)
+secondTwo (Quadruplo a b c d) = (c,d)
 
 --Escreva um tipo de dados que pode conter um, dois, tres ou quatro elementos, dependendo do construtor
 --Implemente funções tuple1 até tuple4 que que retornam Just <valor> ou Nothing se o valor nao existe
-data Tuple a b c d = NVazio
+data Tuple a b c d = Tupla1 a | Tupla2 a b | Tupla3 a b c | Tupla4 a b c d deriving (Eq,Show)
 
-tuple1 = undefined 
-tuple2 = undefined 
-tuple3 = undefined 
-tuple4 = undefined 
+tuple1 (Tupla1 a) = Just a
+tuple1 (Tupla2 a b) = Just a
+tuple1 (Tupla3 a b c) = Just a 
+tuple1 (Tupla4 a b c d) = Just a 
+
+tuple2 (Tupla2 a b) = Just b
+tuple2 (Tupla3 a b c) = Just b 
+tuple2 (Tupla4 a b c d) = Just b 
+tuple2 _ = Nothing
+
+tuple3 (Tupla3 a b c) = Just c
+tuple3 (Tupla4 a b c d) = Just c
+tuple3 _ = Nothing
+
+tuple4 (Tupla4 a b c d) = Just d
+tuple4 _ = Nothing
 
 data List a = Nil | Cons a (List a) deriving (Eq,Show)
 
@@ -52,19 +69,33 @@ sizeBST (Node a left right) = 1 + sizeBST left + sizeBST right
 isBST = undefined
 
 --insere uma nova chave na BST retornando a BST modificada
-insert = undefined
+insert x NIL = (Node x NIL NIL)
+insert x (Node a left right) | x<a = Node a (insert x left) right
+                             | otherwise = Node a left (insert x right)
 
 --retorna o Node da BST contendo o dado procurado ou entao NIL
-search = undefined
+search x NIL = error "Not Found!"
+search x (Node a left right) | x==a = (Node a left right)
+                             | x<a = (search x left)
+                             | otherwise = (search x right)
 
 --retorna o elmento maximo da BST
-maximum = undefined
+maximo x NIL = error "Not Exist!"
+maximo x (Node a left right) | x<a = (maximo a right)
+                              | otherwise = (Node a left right)
 
 --retorna o elemento minimo da BST
-minimum = undefined
+--minimum = undefined
+minimo x NIL = error "Not Exist!"
+minimo x (Node a left right) | x>a = (minimo a left)
+                              | otherwise = (Node a left right)
 
 --retorna o predecessor de um elemento da BST, caso o elemento esteja na BST
-predecessor = undefined
+--predecessor = undefined
+--predecessor x NIL NIL = error "Not Found!"
+--predecessor x (Node a left right) | x==a = (Node a left right)
+--                             | x<a = (search x left)
+--                             | otherwise = (search x right)
 
 --retorna o sucessor de um elemento da BST, caso o elemento esteja na BST
 successor = undefined

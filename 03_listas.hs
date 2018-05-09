@@ -65,18 +65,7 @@ encode xs = undefined
 {-
 - Divide uma lista em duas sublistas onde o ponto de divisao é dado. Ex: split [3,6,1,9,4] 3 = [[3,6,1],[9,4]]
 -}
---split xs i = undefined
---split (_:[]) 1 = []
---split (x:xs) 1 = (x:[])--[xs]
---split (x:xs) i = x:(split xs (i-1))
-
---split [] _ = []
-split (x:xs) 1 = x:[]
-split (_:xs) 0 = xs
-split (x:xs) i = ys++zs
-    where
-        ys = x:split xs (i-1)
-        zs = split xs (i-1)
+split xs i = [take i xs] ++ [drop i xs]
  
 {-
 - Extrai um pedaço (slice) de uma lista especificado por um intervalo. 
@@ -137,15 +126,8 @@ buildPalindrome xs = xs++(meuReverso xs)
 {-
 - Computa a media dos elementos de uma lista de numeros, sem usar nenhuma funcao pronta de listas.
 -}
---mean xs = undefined
---mean (x:[]) = [ (y,z) | y<-1, z<-x]
---mean (x:xs) = [ (y,z)| y <- 1 , z <- x + mean (x:xs) , y>0||z>0]
---mean [] = error "Empyt List"
-mean (x:xs) = mean' (x:xs) 2
-mean' (x:[]) cont = x
-mean' (x:xs) cont = ( x + mean' (xs) (cont+1) ) / cont
---mean' (x:xs) cont | (xs==[]) = x
---                  | otherwise = div ( x + mean' (xs) (cont+1) ) (cont)
+mean [] = error "Empyt List"
+mean xs = ( fromIntegral(sum xs ) )/( fromIntegral(meuLength xs) )      
 
 {-
 - Escreva a funcao myAppend que faz o append de uma lista xs com a lista ys, usando a função foldr. 

@@ -51,11 +51,6 @@ elementAt = \i (x:xs) -> if(i==1) then x
                          else if(i==0) then error "Not Exist"
                          else elementAt (i-1) xs
 
-----------------------------
-t1 = \x -> \_ -> x
-t2 = \x _ -> x
-----------------------------
-
 meuLength xs = undefined
 ---meuLength = \(x:xs) -> if(i==1) then x
 --                       else if(i==0) then error "Not Exist"
@@ -63,11 +58,14 @@ meuLength xs = undefined
 
 --meuReverso xs = undefined
 --meuReverso = \(x:xs) -> x==[]
-isPalindrome xs = undefined
+
+--isPalindrome = \xs -> xs==meuReverso(xs)
+
 compress xs = undefined
 compact xs = undefined
 encode xs = undefined
-split xs i = undefined
+
+split = \xs i -> [take i xs] ++ [drop i xs]
 
 slice = \(x:xs) imin imax -> if(imin==1 && imax==0) then []
                              else if(imin==1) then x:slice xs 1 (imax-1)
@@ -83,7 +81,15 @@ mySum = \(x:xs) -> foldr (+) (0) (x:xs)
 
 maxList = \(x:xs) -> foldr (max) (0) (x:xs)
 
-buildPalindrome xs = undefined
-mean xs = undefined
+--buildPalindrome = \xs -> xs++(meuReverso xs)
+
+--mean = \xs -> ( fromIntegral(sum xs ) )/( fromIntegral(meuLength xs) )      
 
 myAppend = \(x:xs) (y:ys) -> foldr (:) (x:xs) (y:ys)
+
+----------------------------
+--------- Notes ------------
+----------------------------
+t1 = \x -> \_ -> x
+t2 = \x _ -> x
+----------------------------
