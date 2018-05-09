@@ -1,0 +1,3 @@
+Para laboratórios de Haskell:
+Compile seu código fonte .hs : ghc <nome_arquivo>.hs -o <nome_arquivo>
+

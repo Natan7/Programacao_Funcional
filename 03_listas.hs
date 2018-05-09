@@ -33,19 +33,15 @@ meuLength (x:xs) = 1 + meuLength(xs)
 - Retorna o inverso de uma lista. 
 -}
 
---meuReverso [] = error "Empyt List"
---meuReverso ([]:s) = s
---meuReverso (xs:s) = s ++ meuReverso(xs)
---element2 1 (x:xs) = x
---element2 i (x:xs) = element2 (i-1) (xs)
+meuReverso [] = error "Empyt List"
+meuReverso (x:[]) = [x]
+meuReverso (x:xs) = meuReverso(xs)++[x]
 
 {-
 - Diz se uma lista é palindrome. 
 -}
---isPalindrome xs = undefined
---isPalindrome (x:xs:s) | (x==s) = isPalindrome(xs)
---                      | (x==[] && s==[]) = True
---                      | otherwise = False 
+isPalindrome [] = error "Empyt List"
+isPalindrome xs = xs==meuReverso(xs)
 
 {-
 - Remove os elementos duplicados de uma lista. Ex: compress [2,5,8,2,1,8] = [2,5,8,1]
@@ -58,7 +54,7 @@ compress xs = undefined
 - Voce pode usar funcoes sobre listas como : (cons), filter, etc.
 -}
 compact xs = undefined
-
+--filter p xs
 
 {-
 - Retorna uma lista de pares com os elementos e suas quantidades. Ex: encode [2,2,2,3,4,2,5,2,4,5] = [(2,5),(3,1),(4,2),(5,2)]
@@ -69,19 +65,36 @@ encode xs = undefined
 {-
 - Divide uma lista em duas sublistas onde o ponto de divisao é dado. Ex: split [3,6,1,9,4] 3 = [[3,6,1],[9,4]]
 -}
-split xs i = undefined
+--split xs i = undefined
+--split (_:[]) 1 = []
+--split (x:xs) 1 = (x:[])--[xs]
+--split (x:xs) i = x:(split xs (i-1))
 
+--split [] _ = []
+split (x:xs) 1 = x:[]
+split (_:xs) 0 = xs
+split (x:xs) i = ys++zs
+    where
+        ys = x:split xs (i-1)
+        zs = split xs (i-1)
+ 
 {-
 - Extrai um pedaço (slice) de uma lista especificado por um intervalo. 
 - Ex: slice [3,6,1,9,4] 2 4 = [6,1,9]
 -}
-slice xs imin imax = undefined
+slice (x:xs) 1 0 = []
+slice (x:[]) 1 1 = x:[]
+slice (x:xs) 1 imax = x:slice xs 1 (imax-1)
+slice (_:xs) imin imax = slice xs (imin-1) (imax-1)
+
 
 {-
 - Insere um elemento em uma posicao especifica de uma lista. 
 - Ex: insertAt 7 4 [3,6,1,9,4] = [3,6,1,7,9,4]
 -}
-insertAt el pos xs = undefined
+insertAt _ _ [] = error "Empyt List"
+insertAt el 1 xs = el:xs
+insertAt el pos (x:xs) = x:insertAt el (pos-1) xs
 
 {-
 - Ordena uma lista em ordem crescente. Voce deve seguir a ideia do selectionsort onde os elementos 
@@ -107,22 +120,19 @@ mySum xs = foldr (+) (0) xs
 - Dada a funcao max que retorna o maximo entre dois numeros, escreva uma funcao que usa a função
 - foldr e max para retornar o maximo de uma lista se a lista não é vazia.
 -}
---maxList xs = undefined
 maxList [] = error "Empyt List"
 maxList xs = foldr (max) (0) xs
-
 {------------- Outra Forma----------------
 maxList [] = error "Empyt List"
 maxList (x:y:[]) = max x y
 maxList (x:y:xs) = maxList( (max x y):xs )	
 ------------------------------------------}
 
-
 {-
 - Transforma uma string em uma palindrome acrescentando o reverso da string ao seu final sem usar a funcao reverse. 
 - Ex: buildPalindrome [1,2,3] = [1,2,3,3,2,1]. 
 -}
-buildPalindrome xs = undefined
+buildPalindrome xs = xs++(meuReverso xs)
 
 {-
 - Computa a media dos elementos de uma lista de numeros, sem usar nenhuma funcao pronta de listas.
@@ -130,6 +140,12 @@ buildPalindrome xs = undefined
 --mean xs = undefined
 --mean (x:[]) = [ (y,z) | y<-1, z<-x]
 --mean (x:xs) = [ (y,z)| y <- 1 , z <- x + mean (x:xs) , y>0||z>0]
+--mean [] = error "Empyt List"
+mean (x:xs) = mean' (x:xs) 2
+mean' (x:[]) cont = x
+mean' (x:xs) cont = ( x + mean' (xs) (cont+1) ) / cont
+--mean' (x:xs) cont | (xs==[]) = x
+--                  | otherwise = div ( x + mean' (xs) (cont+1) ) (cont)
 
 {-
 - Escreva a funcao myAppend que faz o append de uma lista xs com a lista ys, usando a função foldr. 

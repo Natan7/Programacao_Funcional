@@ -48,6 +48,7 @@ firstall = \(x:xs) -> tail xs
 penultimo xs = undefined
 
 elementAt = \i (x:xs) -> if(i==1) then x
+                         else if(i==0) then error "Not Exist"
                          else elementAt (i-1) xs
 
 ----------------------------
@@ -56,17 +57,33 @@ t2 = \x _ -> x
 ----------------------------
 
 meuLength xs = undefined
-meuReverso xs = undefined
+---meuLength = \(x:xs) -> if(i==1) then x
+--                       else if(i==0) then error "Not Exist"
+--                       else elementAt (i-1) xs
+
+--meuReverso xs = undefined
+--meuReverso = \(x:xs) -> x==[]
 isPalindrome xs = undefined
 compress xs = undefined
 compact xs = undefined
 encode xs = undefined
 split xs i = undefined
-slice xs imin imax = undefined
-insertAt el pos xs = undefined
+
+slice = \(x:xs) imin imax -> if(imin==1 && imax==0) then []
+                             else if(imin==1) then x:slice xs 1 (imax-1)
+                             else slice xs (imin-1) (imax-1)
+
+--insertAt el pos xs = undefined
+insertAt = \el pos (x:xs) -> if(pos==1) then el:x:xs
+                             else x:insertAt el (pos-1) xs
+
 sort xs = undefined
-mySum xs = undefined
-maxList xs = undefined
+
+mySum = \(x:xs) -> foldr (+) (0) (x:xs)
+
+maxList = \(x:xs) -> foldr (max) (0) (x:xs)
+
 buildPalindrome xs = undefined
 mean xs = undefined
-myAppend xs ys = undefined
+
+myAppend = \(x:xs) (y:ys) -> foldr (:) (x:xs) (y:ys)
