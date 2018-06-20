@@ -1,4 +1,4 @@
-module MultisetList ()
+module MultisetMap ()
  where
 
 {- 
@@ -6,31 +6,16 @@ module MultisetList ()
  - permite duplicadas. Entretanto, as duplicatas são armazenadas como a quantidade de 
  - ocorréncias do mesmo elemento no multi-conjunto. Exemplo, a coleção {a,b,c,c,c,b} poderia 
  - ser representada como sendo {(a,1), (b,2), (c,3)}. A ideia de multi-conjunto pode ser 
- - implementada de diversas formas. Uma delas é usando a implementacao de Data.List, onde 
- - cada elemento da lista consiste do dado em si e sua quantidade (um par). 
- - Eh recomendavel que voce consulte a documentacao de Data.List
+ - implementada de diversas formas. Uma delas é usando a implementacao de Data.Map, onde 
+ - cada elemento da lista consiste do dado em si mapeado para sua quantidade. 
+ - Eh recomendavel que voce consulte a documentacao de Data.Map
  -}
-import Data.List as List
+import Data.Map as Map
 
 {-
  - Insere um elemento na estrutura. Caso o elemento ja existe, sua quantidade na estrutura sera incrementada.
  -}
---insert elem bag = undefined
---data bag = bag | bag {(letter::Char, x::Int)} deriving (Eq,Show)
---insert elem bag |  ( fst bag )
---data bag = Bag {letter::Char, x::Int} deriving (Eq,Show)
---data Bag a = Bag [(a, Int)] deriving (Eq,Show)
---bag Bag a = fst (head [a])== elem
---bag Bag [] = NULL
---insert elem (Bag) = fst (head )== elem
---bag :: (a,Int) -> (Int
---bag [(a,_)] = a
-bag xs = fst (head xs)
-
-data Foo2 = Bar2 | Baz2 {bazNumber::Int, bazName::String}
-h :: Foo2 -> Int
-h Baz2 {bazName=name} = length name
-h Bar2 {} = 0
+insert elem bag = undefined
 
 {-
 - Remove um elemento da estrutura, levando em consideracao a manipulacao de sua quantidade na estrutura. 
